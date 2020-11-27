@@ -1,3 +1,4 @@
+시연영상 ->  https://www.notion.so/3f6112a4ed19477ba1290c0ad6f57f43
 
 주제: 영화 api를 이용하여 영화 웹사이트를 만들기
 
