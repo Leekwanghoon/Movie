@@ -73,6 +73,16 @@ const MovieRuntime = styled.div`
     margin-bottom:10px;
 `;
 
+const MovieRanking = styled.span`
+    position: absolute;
+    top: -55px;
+    right: -11px;
+    color: #482d73;
+    font-size: 101px;
+    transform: rotate(11deg);
+`;
+
+
 const temp = {
     textDecoration: "none"
 }
@@ -88,6 +98,7 @@ function ClickMovie(props) {
             </Helmet>
             
             <ContainerMovie>
+                <MovieRanking>{ClickData.ranking+1}</MovieRanking>
                 <MovieImg src={ClickData.poster} alt={ClickData.title} title={ClickData.title} />
                 <MovieData>
                     <MovieTitle>제목 : {ClickData.title}</MovieTitle>

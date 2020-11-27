@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
-import About from "./routes/About";
 import ClickMovie from "./routes/ClickMovie";
 import Home from "./routes/Home";
 import Main from "./routes/Main";
@@ -24,7 +23,6 @@ function App() {
             <Route exact path="/" component={Home} />
             <Route exact path="/main" component={Main} />
             <Route exact path="/movie/:id" component={ClickMovie} />
-            <Route exact path="/about" component={About} />
             <Redirect path="*" to="/" />
           </Wrapper>
         </Switch>

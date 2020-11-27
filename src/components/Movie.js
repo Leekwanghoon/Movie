@@ -13,20 +13,10 @@ const ContainerMovie = styled.div`
     color: "black";
     box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25),
         0 8px 16px -8px rgba(0, 0, 0, 0.3), 0 -6px 16px -6px rgba(0, 0, 0, 0.025);
-`;
-
-
-const MovieImg = styled.img`
-    max-width: 150px;
-    width: 100%;
-    box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25),
-        0 18px 36px -18px rgba(0, 0, 0, 0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.025);
     &:hover {
-        background-size: 1.5;
-        opacity: 0.8;
+        transform:scale(1.1);
     }
 `;
-
 
 
 const MovieData = styled.div`
@@ -38,11 +28,18 @@ const MovieTitle = styled.h3`
     margin-bottom: 5px;
     font-size: 24px;
     color: #2c2c2c;
+    &:hover {
+        transform:scale(1.1);
+    }
+    
 `;
 
 const MovieYear = styled.h5`
     margin: 0;
     font-weight: 300;
+    &:hover {
+        transform:scale(1.1);
+    }
 `;
 
 const MovieGenres = styled.ul`
@@ -52,24 +49,82 @@ const MovieGenres = styled.ul`
     display: flex;
     flex-wrap: wrap;
     margin: 5px 0px;
+    &:hover {
+        transform:scale(1.1);
+    }
+    
 `;
 
 const MovieGenresGenre = styled.li`
     margin-right: 10px;
     font-size: 14px;
+    &:hover {
+        transform:scale(1.1);
+    }
 `;
 
 const MovieSummary = styled.p`
-
+    &:hover {
+        transform:scale(1.1);
+    }
 `;
 
 const temp = {
     textDecoration: "none"
 }
 
+const MovieRanking = styled.span`
+    position: absolute;
+    top: -55px;
+    left: -25px;
+    color: #482d73;
+    font-size: 101px;
+    transform: rotate(-11deg);
+`;
+
+const Overlay = styled.div`
+    background-color: rgba(0,0,0,0.6);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.5s linear; 
+`;
+
+const ImgContainer = styled.div`
+    background-image: url(${props => props.bg});
+    background-size: cover;
+    width:200px;
+    height:300px;
+    position:relative;
+    top:-50px;
+    left: 400px;
+    &:hover{
+        ${Overlay} {
+            opacity: 1;
+        }
+    }
+`;
+
+const Rating = styled.div`
+    color: white;
+    display: flex;
+    align-items: center;
+    &:first-child {
+        margin-right: 30px;
+    }
+`;
+
+const RatingText = styled.span `
+    margin-left: 10px;
+    font-size: 16px;
+`;
 
 
 function Movie({
+    ranking,
     id,
     title,
     year,
@@ -85,6 +140,7 @@ function Movie({
             <title>MainMovie | You Can see Ranking Movie!</title>
         </Helmet>
         <ContainerMovie>
+            <MovieRanking>{ranking+1}</MovieRanking>
             <Link style={temp}
                 to={{ pathname:`/movie/${id}`,
                 state: {
@@ -94,22 +150,26 @@ function Movie({
                     poster,
                     genres,
                     rating,
-                    runtime
+                    runtime,
+                    ranking
                 }
             }}
             >
-            <div style={{
-                display:'flex',
-                justifyContent: 'center',
-                position: 'relative',
-                width:"100%",
-                height: "100%"
-            }}>
-                <MovieImg src={poster} alt={title} title={title} />
-            </div>
+
+            <ImgContainer bg={poster}>
+                <Overlay>
+                    <Rating>
+                        <RatingText>평점 : {rating}</RatingText>
+                    </Rating>
+                    <Rating>
+                        <RatingText>상영시간 : {runtime}</RatingText>
+                    </Rating>    
+                </Overlay>
+            </ImgContainer>
+
                 <MovieData>
-                    <MovieTitle>{title}</MovieTitle>
-                    <MovieYear>{year}</MovieYear>
+                    <MovieTitle>제목/{title}</MovieTitle>
+                    <MovieYear>개봉년도/{year}</MovieYear>
                     <MovieGenres>
                         {genres.map((genre,index) => (
                             <MovieGenresGenre key={index}>
@@ -117,7 +177,7 @@ function Movie({
                             </MovieGenresGenre> 
                         ))}
                     </MovieGenres>
-                    <MovieSummary>{summary.slice(0,180)}...</MovieSummary>
+                    <MovieSummary>줄거리 : {summary.slice(0,180)}...</MovieSummary>
                 </MovieData>
             </Link>
         </ContainerMovie>

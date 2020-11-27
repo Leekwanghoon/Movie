@@ -6,8 +6,9 @@ function Main({data}) {
     const Movies = data.data.data.movies;
     return (
         <div>
-            {Movies.map(movie => (
-                <Movie 
+            {Movies.map((movie,index) => (
+                <Movie
+                    ranking={index}
                     key={movie.id}
                     id={movie.id}
                     year={movie.year}

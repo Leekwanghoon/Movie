@@ -8,7 +8,6 @@ export default () => {
     const [Data, setData] = useState({});
 
     useEffect(() => {
-        console.log(loading);
         const getMovies = async () => {
             const data = await axios.get("https://yts-proxy.now.sh/list_movies.json?sort_by=rating");
             setData(data);
@@ -18,7 +17,7 @@ export default () => {
     },[])
     return(
         <>
-        {loading ? <Loader /> : <Main data={Data} />}
+        {loading ? <Loader /> : <Main data={Data}/>}
         </>
     );
 }
